@@ -1,9 +1,8 @@
 import "./App.css";
-import Column, { Card, CardStatus } from "./components/column/column.component";
+import Column, { CardStatus } from "./components/column/column.component";
+import Board from "./components/board/board.component";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
-import { useState } from "react";
-import { v4 } from "uuid";
 
 const CARD_STATUSES: CardStatus[] = ["todo", "doing", "done"];
 
@@ -24,42 +23,20 @@ const statusToTitle = (status: CardStatus) => {
   }
 }
 
-const basicCard = (): Card => ({
-  id: v4(),
-  status: 'todo',
-  text: 'some card text'
-})
 
 function App() {
-  const [cards, setCards] = useState<Card[]>([basicCard(), basicCard(), basicCard()]);
-
-  const updateCardStatus = (id: string, newStatus: CardStatus) => {
-    const newCards = cards.map((card) => {
-      if (card.id === id) {
-        card.status = newStatus;
-      }
-      return card;
-    });
-    setCards(newCards);
-  };
-
-  const addCard = (text: string, status: CardStatus) => {
-    setCards(cards.concat([{ id: v4(), text, status }]))
-  }
-
   return (
     <div className="flex w-screen">
       <DndProvider backend={HTML5Backend}>
-        {CARD_STATUSES.map((cardStatus) => (
-          <Column
-            key={cardStatus}
-            columnStatus={cardStatus}
-            title={statusToTitle(cardStatus)}
-            updateCardStatus={updateCardStatus}
-            addCard={addCard}
-            cards={cards.filter(({ status }) => status === cardStatus)}
-          />
-        ))}
+        <Board>
+          {CARD_STATUSES.map((cardStatus) => (
+            <Column
+              key={cardStatus}
+              columnStatus={cardStatus}
+              title={statusToTitle(cardStatus)}
+            />
+          ))}
+        </Board>
       </DndProvider>
     </div>
   );

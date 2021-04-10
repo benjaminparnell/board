@@ -2,6 +2,7 @@ import styles from "./column.module.css";
 import CardComponent from "../card/card.component";
 import { useDrop } from "react-dnd";
 import { useState } from "react";
+import { useBoard } from "../board/board.component";
 
 export type CardStatus = "todo" | "doing" | "done";
 
@@ -13,25 +14,21 @@ export interface Card {
 
 interface ColumnProps {
   title: string;
-  cards: Card[];
   columnStatus: CardStatus;
-  updateCardStatus: (id: string, newStatus: CardStatus) => void;
-  addCard: (text: string, status: CardStatus) => void;
 }
 
 const Column: React.FC<ColumnProps> = ({
   title,
-  cards,
-  updateCardStatus,
   columnStatus,
-  addCard
 }) => {
+  const { addCard, cards: boardCards, updateCardStatus } = useBoard()
   const [_, dropRef] = useDrop(() => ({
     accept: "card",
     drop: () => {
       return { status: columnStatus };
     },
   }));
+  const cards = boardCards.filter(({ status }) => status === columnStatus)
   const [cardName, setCardName] = useState("");
 
   const onKeyDown: React.KeyboardEventHandler<HTMLInputElement> = (event) => {
