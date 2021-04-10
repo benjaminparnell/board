@@ -13,10 +13,10 @@ const Card: React.FC<CardProps> = ({ text, id, onDropped }) => {
     type: "card",
     item: { id, text },
     end: (item, monitor) => {
-      const dropResult = monitor.getDropResult<{ status: CardStatus }>()
+      const dropResult = monitor.getDropResult<{ status: CardStatus }>();
 
       if (dropResult) {
-        onDropped(dropResult.status)
+        onDropped(dropResult.status);
       }
     },
   }));
