@@ -51,8 +51,6 @@ const Board: React.FC = ({ children }) => {
 
 export default Board;
 
-const useBoard = () => useContext(BoardContext)
+const useBoard = () => useContext(BoardContext);
 
-export {
-    useBoard
-}
+export { useBoard };

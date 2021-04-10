@@ -1,8 +1,8 @@
 import styles from "./column.module.css";
 import CardComponent from "../card/card.component";
 import { useDrop } from "react-dnd";
-import { useState } from "react";
 import { useBoard } from "../board/board.component";
+import NewCardForm from "./new-card-form.component";
 
 export type CardStatus = "todo" | "doing" | "done";
 
@@ -17,30 +17,15 @@ interface ColumnProps {
   columnStatus: CardStatus;
 }
 
-const Column: React.FC<ColumnProps> = ({
-  title,
-  columnStatus,
-}) => {
-  const { addCard, cards: boardCards, updateCardStatus } = useBoard()
+const Column: React.FC<ColumnProps> = ({ title, columnStatus }) => {
+  const { addCard, cards: boardCards, updateCardStatus } = useBoard();
   const [_, dropRef] = useDrop(() => ({
     accept: "card",
     drop: () => {
       return { status: columnStatus };
     },
   }));
-  const cards = boardCards.filter(({ status }) => status === columnStatus)
-  const [cardName, setCardName] = useState("");
-
-  const onKeyDown: React.KeyboardEventHandler<HTMLInputElement> = (event) => {
-    if (event.key === "Enter" && cardName) {
-      setCardName("")
-      addCard(cardName, columnStatus)
-    }
-  };
-
-  const onChange: React.ChangeEventHandler<HTMLInputElement> = (event) => {
-    setCardName(event.target.value)
-  }
+  const cards = boardCards.filter(({ status }) => status === columnStatus);
 
   return (
     <div className={styles.column} ref={dropRef}>
@@ -52,15 +37,7 @@ const Column: React.FC<ColumnProps> = ({
           onDropped={(newStatus) => updateCardStatus(card.id, newStatus)}
         />
       ))}
-      <input
-        className={styles.newCardNameInput}
-        onKeyDown={onKeyDown}
-        onChange={onChange}
-        value={cardName}
-        type="text"
-        name="newCardName"
-        placeholder="Add a card"
-      />
+      <NewCardForm onAdd={(cardName) => addCard(cardName, columnStatus)} />
     </div>
   );
 };
