@@ -7,6 +7,23 @@ import { v4 } from "uuid";
 
 const CARD_STATUSES: CardStatus[] = ["todo", "doing", "done"];
 
+const assertNever = (x: never): never => {
+  throw new Error()
+}
+
+const statusToTitle = (status: CardStatus) => {
+  switch (status) {
+    case 'todo':
+      return 'Todo'
+    case 'doing':
+      return 'Doing'
+    case 'done':
+      return 'Done'
+    default:
+      return assertNever(status)
+  }
+}
+
 const basicCard = (): Card => ({
   id: v4(),
   status: 'todo',
@@ -33,6 +50,7 @@ function App() {
           <Column
             key={cardStatus}
             columnStatus={cardStatus}
+            title={statusToTitle(cardStatus)}
             updateCardStatus={updateCardStatus}
             cards={cards.filter(({ status }) => status === cardStatus)}
           />

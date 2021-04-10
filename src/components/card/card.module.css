@@ -4,4 +4,6 @@
     @apply border-solid;
     @apply border-opacity-100;
     @apply p-8;
+    @apply mb-4;
+    @apply rounded-md;
 }

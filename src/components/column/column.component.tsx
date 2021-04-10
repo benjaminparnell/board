@@ -11,12 +11,14 @@ export interface Card {
 }
 
 interface ColumnProps {
+  title: string;
   cards: Card[];
   columnStatus: CardStatus;
   updateCardStatus: (id: string, newStatus: CardStatus) => void;
 }
 
 const Column: React.FC<ColumnProps> = ({
+  title,
   cards,
   updateCardStatus,
   columnStatus,
@@ -30,6 +32,7 @@ const Column: React.FC<ColumnProps> = ({
 
   return (
     <div className={styles.column} ref={dropRef}>
+      <h2 className="mb-4">{title}</h2>
       {cards.map((card) => (
         <CardComponent
           key={card.id}
