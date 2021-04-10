@@ -7,22 +7,21 @@ import { HTML5Backend } from "react-dnd-html5-backend";
 const CARD_STATUSES: CardStatus[] = ["todo", "doing", "done"];
 
 const assertNever = (x: never): never => {
-  throw new Error()
-}
+  throw new Error();
+};
 
 const statusToTitle = (status: CardStatus) => {
   switch (status) {
-    case 'todo':
-      return 'Todo'
-    case 'doing':
-      return 'Doing'
-    case 'done':
-      return 'Done'
+    case "todo":
+      return "Todo";
+    case "doing":
+      return "Doing";
+    case "done":
+      return "Done";
     default:
-      return assertNever(status)
+      return assertNever(status);
   }
-}
-
+};
 
 function App() {
   return (

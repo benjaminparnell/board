@@ -29,7 +29,7 @@ const Column: React.FC<ColumnProps> = ({ title, columnStatus }) => {
 
   return (
     <div className={styles.column} ref={dropRef}>
-      <h2 className="mb-4">{title}</h2>
+      <h2 className="mb-4 font-semibold">{title}</h2>
       {cards.map((card) => (
         <CardComponent
           key={card.id}

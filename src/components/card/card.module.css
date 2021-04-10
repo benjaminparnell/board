@@ -1,9 +1,9 @@
 .card {
-    @apply border-black;
-    @apply border-2;
-    @apply border-solid;
-    @apply border-opacity-100;
-    @apply p-8;
-    @apply mb-4;
-    @apply rounded-md;
+  @apply border-black;
+  @apply border-2;
+  @apply border-solid;
+  @apply border-opacity-100;
+  @apply p-4;
+  @apply mb-4;
+  @apply rounded-md;
 }
