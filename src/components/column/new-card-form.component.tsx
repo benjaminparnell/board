@@ -26,7 +26,7 @@ const NewCardForm: React.FC<NewCardFormProps> = ({ onAdd }) => {
       onChange={onChange}
       value={cardName}
       type="text"
-      name="newCardName"
+      name="newCardText"
       placeholder="Add a card"
     />
   );
