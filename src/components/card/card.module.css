@@ -1,0 +1,7 @@
+.card {
+    @apply border-black;
+    @apply border-2;
+    @apply border-solid;
+    @apply border-opacity-100;
+    @apply p-8;
+}
