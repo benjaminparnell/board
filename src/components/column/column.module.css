@@ -6,4 +6,15 @@
     @apply w-1/3;
     @apply h-screen;
     @apply p-8;
+    @apply overflow-y-auto;
+}
+
+.newCardNameInput {
+    @apply border-gray-100;
+    @apply border-2;
+    @apply border-solid;
+    @apply border-opacity-100;
+    @apply p-4;
+    @apply rounded-md;
+    @apply w-full;
 }

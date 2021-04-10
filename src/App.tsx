@@ -43,6 +43,10 @@ function App() {
     setCards(newCards);
   };
 
+  const addCard = (text: string, status: CardStatus) => {
+    setCards(cards.concat([{ id: v4(), text, status }]))
+  }
+
   return (
     <div className="flex w-screen">
       <DndProvider backend={HTML5Backend}>
@@ -52,6 +56,7 @@ function App() {
             columnStatus={cardStatus}
             title={statusToTitle(cardStatus)}
             updateCardStatus={updateCardStatus}
+            addCard={addCard}
             cards={cards.filter(({ status }) => status === cardStatus)}
           />
         ))}

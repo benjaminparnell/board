@@ -23,7 +23,7 @@ const Card: React.FC<CardProps> = ({ text, id, onDropped }) => {
 
   return (
     <div className={styles.card} ref={dragRef}>
-      <p>Card</p>
+      <p>{text}</p>
     </div>
   );
 };
