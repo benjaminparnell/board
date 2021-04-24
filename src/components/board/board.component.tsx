@@ -5,6 +5,7 @@ import { Card, CardStatus } from "../column/column.component";
 
 interface BoardContextValues {
   addCard: (text: string, status: CardStatus) => void;
+  updateCard: (card: Card) => void;
   updateCardStatus: (id: string, newStatus: CardStatus) => void;
   cards: Card[];
 }
@@ -12,6 +13,7 @@ interface BoardContextValues {
 const BoardContext = createContext<BoardContextValues>({
   addCard: () => null,
   updateCardStatus: () => null,
+  updateCard: () => null,
   cards: [],
 });
 
@@ -38,12 +40,24 @@ const Board: React.FC = ({ children }) => {
     setCards(newCards);
   };
 
+  const updateCard = (updatedCard: Card) => {
+    const newCards = cards.map((card) => {
+      if (card.id === updatedCard.id) {
+        card = { ...updatedCard };
+      }
+      return card;
+    });
+    setCards(newCards);
+  };
+
   const addCard = (text: string, status: CardStatus) => {
     setCards(cards.concat([{ id: v4(), text, status }]));
   };
 
   return (
-    <BoardContext.Provider value={{ updateCardStatus, addCard, cards }}>
+    <BoardContext.Provider
+      value={{ updateCardStatus, addCard, cards, updateCard }}
+    >
       {children}
     </BoardContext.Provider>
   );

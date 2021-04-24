@@ -7,10 +7,11 @@ import { useState } from "react";
 interface CardProps {
   text: string;
   id: string;
+  status: CardStatus;
   onDropped: (newStatus: CardStatus) => void;
 }
 
-const Card: React.FC<CardProps> = ({ text, id, onDropped }) => {
+const Card: React.FC<CardProps> = ({ text, id, status, onDropped }) => {
   const [showEditModal, setShowEditModal] = useState(false);
   const [_, dragRef] = useDrag(() => ({
     type: "card",
@@ -33,7 +34,10 @@ const Card: React.FC<CardProps> = ({ text, id, onDropped }) => {
       <p>{text}</p>
 
       {showEditModal && (
-        <EditModal onClose={() => setShowEditModal(false)} text={text} />
+        <EditModal
+          onClose={() => setShowEditModal(false)}
+          card={{ text, id, status }}
+        />
       )}
     </div>
   );

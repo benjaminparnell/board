@@ -1,14 +1,18 @@
 import { useEffect, useRef } from "react";
 import Modal from "../modal/modal.component";
 import styles from "../modal/modal.module.css";
+import { Formik, Form, Field } from "formik";
+import { useBoard } from "../board/board.component";
+import { Card } from "../column/column.component";
 
 interface EditModalProps {
-  text: string;
   onClose: () => void;
+  card: Card;
 }
 
-const EditModal: React.FC<EditModalProps> = ({ text, onClose }) => {
+const EditModal: React.FC<EditModalProps> = ({ card, onClose }) => {
   const ref = useRef<HTMLDivElement>(null);
+  const { updateCard } = useBoard();
 
   useEffect(() => {
     if (ref.current) {
@@ -32,14 +36,26 @@ const EditModal: React.FC<EditModalProps> = ({ text, onClose }) => {
     <Modal>
       <div className={styles.modal} ref={ref}>
         <div className={styles.modalTop}>
-          {text}
-          <button
-            type="button"
-            className={styles.closeButton}
-            onClick={() => onClose()}
+          <Formik
+            initialValues={{ text: card.text }}
+            onSubmit={(values) => {
+              updateCard({ ...card, ...values });
+            }}
           >
-            Close
-          </button>
+            <Form>
+              <Field id="text" name="text" />
+              <button type="submit" className={styles.closeButton}>
+                Save
+              </button>
+              <button
+                type="button"
+                className={styles.closeButton}
+                onClick={() => onClose()}
+              >
+                Close
+              </button>
+            </Form>
+          </Formik>
         </div>
       </div>
     </Modal>
