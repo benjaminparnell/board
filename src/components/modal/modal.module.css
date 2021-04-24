@@ -1,0 +1,27 @@
+.modal {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+
+  background-color: white;
+  border: 1px solid black;
+  width: 700px;
+  height: 300px;
+  transform: translate(-50%, -50%);
+  @apply rounded-md;
+  @apply p-8;
+}
+
+.modalTop {
+  @apply flex;
+  @apply justify-between;
+  @apply align-baseline;
+}
+
+.closeButton {
+  @apply rounded-md;
+  @apply border;
+  @apply border-gray-300;
+  @apply px-6;
+  @apply py-2;
+}
